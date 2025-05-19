@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fee & Student Record Management</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0; padding: 0;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .tabs {
+      display: flex;
+      overflow-x: auto;
+      background: #34495e;
+      border-bottom: 3px solid #1abc9c;
+    }
+
+    .tab {
+      flex: 1 0 auto;
+      padding: 14px 20px;
+      cursor: pointer;
+      text-align: center;
+      color: #ecf0f1;
+      font-weight: 600;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    .tab:hover {
+      background: #1abc9c;
+      color: #2c3e50;
+    }
+
+    .tab.active {
+      background: #1abc9c;
+      color: #2c3e50;
+      font-weight: 700;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #1abc9c;
+      color: white;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .totalFee {
+      font-weight: 700;
+      color: #16a085;
+    }
+
+    button.save-btn {
+      display: block;
+      margin: 0 auto;
+      background: #1abc9c;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button.save-btn:hover {
+      background: #16a085;
+    }
+
+    .add-student-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      float: right;
+      transition: background 0.3s;
+    }
+
+    .add-student-btn:hover {
+      background: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 14px;
+        padding: 8px 10px;
+      }
+      button.save-btn, .add-student-btn {
+        font-size: 16px;
+        padding: 10px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Fee & Student Record Management — Nursery to Class 12
+  </header>
+
+  <div class="tabs" id="classTabs">
+    <!-- Tabs inserted by JS -->
+  </div>
+
+  <div class="content" id="tabContent">
+    <!-- Tab content inserted by JS -->
+  </div>
+
+  <script>
+    // Sample student data with fees for each class
+    const data = {
+      Nursery: [
+        { id: 1, name: "Aarav Sharma", oldDue: 500, newFee: 1500, otherCharges: 100 },
+        { id: 2, name: "Mia Gurung", oldDue: 0, newFee: 1500, otherCharges: 150 },
+        { id: 3, name: "Kabir Rai", oldDue: 200, newFee: 1500, otherCharges: 0 },
+      ],
+      "Class 1": [
+        { id: 1, name: "Saanvi Thapa", oldDue: 0, newFee: 2000, otherCharges: 200 },
+        { id: 2, name: "Rohan Karki", oldDue: 100, newFee: 2000, otherCharges: 100 },
+      ],
+      "Class 2": [
+        { id: 1, name: "Anaya Lama", oldDue: 300, newFee: 2200, otherCharges: 0 },
+        { id: 2, name: "Nikhil Rai", oldDue: 0, newFee: 2200, otherCharges: 50 },
+      ],
+      // Add more classes as needed
+    };
+
+    const tabsContainer = document.getElementById('classTabs');
+    const contentContainer = document.getElementById('tabContent');
+
+    // Create tabs dynamically
+    const classes = Object.keys(data);
+    classes.forEach((className, i) => {
+      const tab = document.createElement('div');
+      tab.classList.add('tab');
+      if(i === 0) tab.classList.add('active');
+      tab.innerText = className;
+      tab.addEventListener('click', () => {
+        setActiveTab(className);
+      });
+      tabsContainer.appendChild(tab);
+    });
+
+    // Render content for the selected tab
+    function renderContent(className) {
+      const students = data[className];
+      let html = `<h2>Student & Fee Records: ${className}</h2>`;
+
+      // Add button to add new student
+      html += `<button class="add-student-btn" onclick="addStudent('${className}')">+ Add Student</button>`;
+
+      html += `<table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Old Due Fee (NPR)</th>
+            <th>New Fee (NPR)</th>
+            <th>Other Charges (NPR)</th>
+            <th>Total Fee (NPR)</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      students.forEach((stu, idx) => {
+        const total = stu.oldDue + stu.newFee + stu.otherCharges;
+        html += `
+          <tr>
+            <td><input type="text" value="${stu.name}" data-class="${className}" data-index="${idx}" data-field="name" onchange="updateData(this)" /></td>
+            <td><input type="number" min="0" value="${stu.oldDue}" data-class="${className}" data-index="${idx}" data-field="oldDue" onchange="updateData(this)" /></td>
+            <td><input type="number" min="0" value="${stu.newFee}" data-class="${className}" data-index="${idx}" data-field="newFee" onchange="updateData(this)" /></td>
+            <td><input type="number" min="0" value="${stu.otherCharges}" data-class="${className}" data-index="${idx}" data-field="otherCharges" onchange="updateData(this)" /></td>
+            <td class="totalFee" id="total-${className}-${idx}">${total}</td>
+            <td><button onclick="removeStudent('${className}', ${idx})" style="background:#e74c3c;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">X</button></td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>
+      <button class="save-btn" onclick="saveData('${className}')">Save Changes</button>`;
+
+      contentContainer.innerHTML = html;
+    }
+
+    // Update data object and total fee cell when input changes
+    function updateData(input) {
+      const className = input.getAttribute('data-class');
+      const idx = input.getAttribute('data-index');
+      const field = input.getAttribute('data-field');
+      let value = input.value;
+
+      if(field === "name") {
+        data[className][idx][field] = value.trim();
+      } else {
+        // For fee fields, convert to number and prevent negative
+        value = Number(value);
+        if (isNaN(value) || value < 0) value = 0;
+        data[className][idx][field] = value;
+        input.value = value; // sanitize input value
+      }
+
+      // Update total fee if applicable
+      if(field !== "name") {
+        const stu = data[className][idx];
+        const total = stu.oldDue + stu.newFee + stu.otherCharges;
+        const totalCell = document.getElementById(`total-${className}-${idx}`);
+        if(totalCell) totalCell.textContent = total;
+      }
+    }
+
+    // Add a new student row to the data and refresh
+    function addStudent(className) {
+      data[className].push({
+        id: Date.now(),  // simple unique id
+        name: '',
+        oldDue: 0,
+        newFee: 0,
+        otherCharges: 0
+      });
+      renderContent(className);
+    }
+
+    // Remove student row from data and refresh
+    function removeStudent(className, idx) {
+      if(confirm("Are you sure you want to remove this student?")) {
+        data[className].splice(idx, 1);
+        renderContent(className);
+      }
+    }
+
+    // Switch tab and load content
+    function setActiveTab(className) {
+      [...tabsContainer.children].forEach(tab => {
+        tab.classList.toggle('active', tab.innerText === className);
+      });
+      renderContent(className);
+    }
+
+    // Save edited data - currently just alerts updated data
+    function saveData(className) {
+      // You can implement backend saving here
+      alert(`Data saved for ${className}!\n\n` + JSON.stringify(data[className], null, 2));
+    }
+
+    // Load first tab on page load
+    setActiveTab(classes[0]);
+  </script>
+
+</body>
+</html>
