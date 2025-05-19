@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Dashboard - Smart School</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #f4f6f8;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 24px;
+    }
+    header nav a {
+      color: white;
+      margin-left: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+    header nav a:hover {
+      color: #1abc9c;
+    }
+    main {
+      flex-grow: 1;
+      padding: 40px 30px;
+    }
+    .welcome {
+      font-size: 28px;
+      margin-bottom: 40px;
+      font-weight: 600;
+      color: #2c3e50;
+      animation: fadeInDown 1s ease forwards;
+      opacity: 0;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 30px;
+    }
+    .card {
+      perspective: 1000px;
+      cursor: pointer;
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      background: white;
+    }
+    .card-front i {
+      font-size: 50px;
+      color: #3498db;
+      margin-bottom: 15px;
+      transition: color 0.3s;
+    }
+    .card-front h3 {
+      color: #2c3e50;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card-front p {
+      font-size: 14px;
+      color: #555;
+    }
+    .card-back {
+      background: #1abc9c;
+      color: white;
+      transform: rotateY(180deg);
+      padding: 20px;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 15px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    }
+    .card-back button {
+      margin-top: 15px;
+      background-color: white;
+      color: #1abc9c;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .card-back button:hover {
+      background-color: #16a085;
+      color: white;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smart School Dashboard</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="profile.html">Profile</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
+  <main>
+    <div class="welcome">Welcome, User!</div>
+    <div class="cards">
+      <div class="card" onclick="location.href='students.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Students</h3>
+            <p>Manage student profiles, attendance and reports.</p>
+          </div>
+          <div class="card-back">
+            <div>Access full student management.</div>
+            <button onclick="location.href='students.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="location.href='teachers.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h3>Teachers</h3>
+            <p>Manage teacher information and schedules.</p>
+          </div>
+          <div class="card-back">
+            <div>Access teacher panel and schedule.</div>
+            <button onclick="location.href='teachers.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="location.href='exams.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-file-alt"></i>
+            <h3>Exams</h3>
+            <p>Create and manage exams and results.</p>
+          </div>
+          <div class="card-back">
+            <div>View exam schedules and results.</div>
+            <button onclick="location.href='exams.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="location.href='fees.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-credit-card"></i>
+            <h3>Fees</h3>
+            <p>View and process fee payments.</p>
+          </div>
+          <div class="card-back">
+            <div>Manage payment history and dues.</div>
+            <button onclick="location.href='fees.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="location.href='notifications.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-bell"></i>
+            <h3>Notifications</h3>
+            <p>Send alerts and updates to users.</p>
+          </div>
+          <div class="card-back">
+            <div>Create and manage notifications.</div>
+            <button onclick="location.href='notifications.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="location.href='gallery.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-image"></i>
+            <h3>Gallery</h3>
+            <p>View and upload school event photos.</p>
+          </div>
+          <div class="card-back">
+            <div>Manage photo gallery and uploads.</div>
+            <button onclick="location.href='gallery.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <!-- New Admin Portal Card -->
+      <div class="card" onclick="location.href='admin.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-user-shield"></i>
+            <h3>Admin Portal</h3>
+            <p>Manage system settings, users, and permissions.</p>
+          </div>
+          <div class="card-back">
+            <div>Access administrative controls and analytics.</div>
+            <button onclick="location.href='admin.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+      <!-- New Parents Portal Card -->
+      <div class="card" onclick="location.href='parents.html'">
+        <div class="card-inner">
+          <div class="card-front">
+            <i class="fas fa-users"></i>
+            <h3>Parents Portal</h3>
+            <p>View child's progress, attendance, and communications.</p>
+          </div>
+          <div class="card-back">
+            <div>Stay connected with school updates and reports.</div>
+            <button onclick="location.href='parents.html'; event.stopPropagation();">Go</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 Smart School. All rights reserved.
+  </footer>
+  <script>
+    // Animate cards sequentially on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0)';
+        }, i * 150);
+      });
+    });
+  </script>
+</body>
+</html>
