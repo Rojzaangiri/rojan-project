@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart School Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    /* Form container */
+    .login-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 320px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    /* Input fields */
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 20px;
+      border: 1.8px solid #2c3e50;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #1abc9c;
+    }
+
+    /* Submit button */
+    button {
+      width: 100%;
+      padding: 12px 0;
+      background-color: #1abc9c;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: #16a085;
+      transform: scale(1.05);
+    }
+
+    /* Optional: small footer text */
+    .login-footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .login-footer a {
+      color: #1abc9c;
+      text-decoration: none;
+    }
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .login-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Smart School Login</h2>
+    <form action="dashboard.html" method="POST">
+      <input type="text" name="userid" placeholder="Enter User ID" required autocomplete="off" />
+      <input type="password" name="password" placeholder="Enter Password" required autocomplete="off" />
+      <button type="submit">Login</button>
+    </form>
+    <div class="login-footer">
+      <p>Forgot your password? <a href="contact.html">Contact Admin</a></p>
+    </div>
+  </div>
+
+</body>
+</html>
