@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignments - School Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px 0;
+    }
+    .container {
+      max-width: 900px;
+    }
+    h2 {
+      color: #003d80;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .upload-section {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    .assignments-list {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    table {
+      margin-top: 15px;
+    }
+    thead {
+      background-color: #003d80;
+      color: white;
+    }
+    tbody tr:hover {
+      background-color: #e9f5ff;
+      cursor: pointer;
+    }
+    .btn-upload {
+      background-color: #003d80;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 25px;
+      font-weight: 600;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    .btn-upload:hover {
+      background-color: #00295c;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Assignments Management</h2>
+
+  <!-- Upload New Assignment -->
+  <div class="upload-section">
+    <h4>Upload New Assignment</h4>
+    <form action="upload-assignment.php" method="POST" enctype="multipart/form-data" class="row g-3">
+      <div class="col-md-6">
+        <label for="assignmentTitle" class="form-label">Assignment Title</label>
+        <input type="text" class="form-control" id="assignmentTitle" name="title" placeholder="Enter assignment title" required />
+      </div>
+      <div class="col-md-6">
+        <label for="subjectSelect" class="form-label">Subject</label>
+        <select class="form-select" id="subjectSelect" name="subject" required>
+          <option value="" selected disabled>Select subject</option>
+          <option>Mathematics</option>
+          <option>Nepali</option>
+          <option>English</option>
+          <option>Science</option>
+          <option>Social Studies</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="classSelect" class="form-label">Class</label>
+        <select class="form-select" id="classSelect" name="class" required>
+          <option value="" selected disabled>Select class</option>
+          <option>Nursery</option>
+          <option>KG</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="dueDate" class="form-label">Due Date</label>
+        <input type="date" class="form-control" id="dueDate" name="due_date" required />
+      </div>
+      <div class="col-12">
+        <label for="assignmentFile" class="form-label">Upload File</label>
+        <input class="form-control" type="file" id="assignmentFile" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.rar" required />
+      </div>
+      <div class="col-12 text-end">
+        <button type="submit" class="btn-upload">Upload Assignment</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Assignments List -->
+  <div class="assignments-list">
+    <h4>Available Assignments</h4>
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Class</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Math - Algebra Practice</td>
+          <td>Mathematics</td>
+          <td>8</td>
+          <td>2025-06-25</td>
+          <td><a href="assignments/algebra_practice.pdf" class="btn btn-sm btn-primary" download>Download</a></td>
+        </tr>
+        <tr>
+          <td>Nepali Grammar Exercise</td>
+          <td>Nepali</td>
+          <td>7</td>
+          <td>2025-06-28</td>
+          <td><a href="assignments/nepali_grammar.pdf" class="btn btn-sm btn-primary" download>Download</a></td>
+        </tr>
+        <tr>
+          <td>Science Project Report</td>
+          <td>Science</td>
+          <td>9</td>
+          <td>2025-07-02</td>
+          <td><a href="assignments/science_project.zip" class="btn btn-sm btn-primary" download>Download</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
